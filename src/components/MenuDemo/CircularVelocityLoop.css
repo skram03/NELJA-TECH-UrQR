@@ -1,0 +1,292 @@
+/* ============================================================
+   CircularVelocityLoop.css — Closed Dining Room Loop
+   Matches exact Infographic Wheel Reference: media_1793213134471_96059f39.png
+   ============================================================ */
+
+.circular-velocity-section {
+  margin-top: 40px;
+  padding-top: 36px;
+  border-top: 1px solid var(--color-border, #E4E2DB);
+  width: 100%;
+}
+
+.circular-velocity-header {
+  max-width: 820px;
+  margin: 0 auto 36px;
+}
+
+.circular-velocity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(26, 107, 74, 0.08);
+  border: 1px solid rgba(26, 107, 74, 0.25);
+  color: var(--color-emerald, #1A6B4A);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 10px;
+}
+
+.circular-velocity-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 850;
+  color: var(--color-text, #1C1B18);
+  margin: 0 0 10px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.circular-velocity-sub {
+  font-size: clamp(0.92rem, 1.1vw, 1.04rem);
+  color: #55524A;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* INFOGRAPHIC STAGE CONTAINER                                  */
+/* ──────────────────────────────────────────────────────────── */
+.infographic-loop-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 3.5vw, 48px);
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .infographic-loop-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Central Orbital SVG Wheel */
+.orbital-wheel-wrapper {
+  flex-shrink: 0;
+  width: min(500px, 92vw);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbital-wheel-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 16px 36px rgba(28, 27, 24, 0.08));
+}
+
+/* Ribbon Tracks */
+.loop-ribbon {
+  transition: all 0.3s cubic-bezier(0.2, 0.85, 0.4, 1);
+  opacity: 0.88;
+}
+
+.loop-ribbon--active {
+  stroke-width: 86px !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.25));
+}
+
+.curved-step-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Central Hub Typography & Graphic */
+.central-engine-hub {
+  user-select: none;
+}
+
+.hub-title-txt {
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  fill: #1C1B18;
+}
+
+.hub-sub-txt {
+  font-family: var(--font-mono, monospace);
+  font-size: 8.5px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  fill: #7E7B73;
+}
+
+/* Interactive Node Discs */
+.orbital-node-btn {
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.2, 0.85, 0.4, 1);
+}
+
+.orbital-node-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* 4 QUADRANT CARDS (CLEAR & HIGH-CONTRAST)                     */
+/* ──────────────────────────────────────────────────────────── */
+.infographic-quadrants-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .infographic-quadrants-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}
+
+.quadrant-card {
+  background: #FFFFFF;
+  border: 2px solid var(--color-border, #E4E2DB);
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px -6px rgba(28, 27, 24, 0.06),
+    0 2px 6px rgba(28, 27, 24, 0.02);
+  transition: all 0.22s cubic-bezier(0.2, 0.85, 0.4, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.quadrant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.12);
+}
+
+/* Active Highlight Styling */
+.quadrant-card--selected {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -8px rgba(0, 0, 0, 0.16) !important;
+}
+
+.quadrant-card--guest.quadrant-card--selected   { border-color: #0284C7; }
+.quadrant-card--waiter.quadrant-card--selected  { border-color: #EA580C; }
+.quadrant-card--kitchen.quadrant-card--selected { border-color: #65A30D; }
+.quadrant-card--payment.quadrant-card--selected { border-color: #059669; }
+
+/* Quadrant Header */
+.quadrant-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.quadrant-step-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #1C1B18;
+  background: var(--color-bg-alt, #F5F3EE);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border, #E4E2DB);
+}
+
+.quadrant-role-pill {
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.step-accent--blue    { background: rgba(2, 132, 199, 0.1); color: #0284C7; }
+.step-accent--orange  { background: rgba(234, 88, 12, 0.12); color: #EA580C; }
+.step-accent--lime    { background: rgba(101, 163, 13, 0.12); color: #65A30D; }
+.step-accent--emerald { background: rgba(5, 150, 105, 0.1); color: #059669; }
+
+.quadrant-title {
+  font-size: 1.05rem;
+  font-weight: 850;
+  color: var(--color-text, #1C1B18);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.quadrant-headline {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #7E7B73;
+}
+
+.quadrant-desc {
+  font-size: 0.78rem;
+  color: #55524A;
+  line-height: 1.45;
+  margin: 0 0 4px;
+}
+
+/* Quadrant Footer */
+.quadrant-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border, #E4E2DB);
+}
+
+.quadrant-metric {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.66rem;
+  font-weight: 850;
+  background: var(--color-bg-alt, #F5F3EE);
+  color: #1C1B18;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border, #E4E2DB);
+}
+
+.quadrant-handoff {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* BOTTOM SYNC BANNER                                           */
+/* ──────────────────────────────────────────────────────────── */
+.loop-sync-banner {
+  max-width: 860px;
+  margin: 28px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 4px 14px rgba(28, 27, 24, 0.04);
+}
+
+.loop-sync-banner p {
+  font-size: 0.8rem;
+  color: #55524A;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.loop-sync-banner strong {
+  color: var(--color-text, #1C1B18);
+}
