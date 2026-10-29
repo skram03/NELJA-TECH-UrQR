@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { CalendarCheck, Sparkles } from "lucide-react";
+import { CalendarCheck, Sparkles, Flame, CheckCircle2, ArrowRight } from "lucide-react";
 import "./FinalCTA.css";
 
 export default function FinalCTA() {
   return (
     <section className="final-cta section" aria-labelledby="cta-heading">
-      {/* Background image */}
+      {/* Background image with obsidian overlay */}
       <div className="final-cta__bg" aria-hidden="true">
         <img
           src="/images/fine-dining.jpg"
@@ -20,61 +20,83 @@ export default function FinalCTA() {
         <div className="final-cta__inner">
           <div className="final-cta__content">
             <div className="final-cta__eyebrow">
-              <Sparkles size={14} />
-              See it with your own menu
+              <Sparkles size={14} className="text-emerald" />
+              <span>TEST-DRIVE ON YOUR OWN FLOOR</span>
             </div>
-            <h2 id="cta-heading" className="final-cta__title serif">
-              Give your guests a better way to order.
+            <h2 id="cta-heading" className="final-cta__title">
+              Ready to turn tables 38% faster this weekend?
             </h2>
             <p className="final-cta__sub">
-              Book a short demo and we will show you the guest menu, the order flow, and the tools your team uses after an order is placed.
+              Book a live 15-minute walkthrough. We'll set up your actual restaurant menu, demo the 10-seat waiter smartphone map, and simulate your kitchen pass fire live.
             </p>
             <div className="final-cta__actions">
-              <Link to="/contact" className="btn btn--cta-primary btn--lg" id="final-book-demo">
+              <Link to="/contact" className="btn btn--primary btn--lg" id="final-book-demo">
                 <CalendarCheck size={18} />
-                Book a Demo
+                Book Outlet Demo
+              </Link>
+              <Link to="/product" className="btn btn--secondary btn--lg">
+                Explore Full Tech Specs <ArrowRight size={16} />
               </Link>
             </div>
 
             {/* Trust signals */}
             <div className="final-cta__trust">
-              {["See the guest menu", "Understand the setup", "Ask about your operation"].map((t, i) => (
+              {[
+                "Zero hardware lock-in (uses staff smartphones)",
+                "Full menu digitization in 24 hours",
+                "Dedicated Nelja Tech local onboarding support"
+              ].map((t, i) => (
                 <span key={i} className="final-cta__trust-item">
-                  <span className="final-cta__trust-dot" aria-hidden="true" />
-                  {t}
+                  <CheckCircle2 size={15} className="text-emerald" />
+                  <span>{t}</span>
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Decorative card */}
+          {/* Decorative Live Simulation Card */}
           <div className="final-cta__card" aria-hidden="true">
+            <div className="final-cta__card-head">
+              <div className="final-cta__brand-tag">
+                <Flame size={14} className="text-amber" />
+                <span>THOOGUDEEPA HUB · LIVE TELEMETRY</span>
+              </div>
+              <span className="chip chip--emerald">KDS ACTIVE</span>
+            </div>
+
             <div className="final-cta__table-line">
-              {["T-01", "T-02", "T-03", "T-04", "T-05", "T-06"].map((t) => (
-                <div key={t} className="final-cta__table-chip">{t}</div>
+              {["SEAT 01", "SEAT 02", "SEAT 03", "SEAT 04", "SEAT 05", "SEAT 06"].map((t, idx) => (
+                <div
+                  key={t}
+                  className={"final-cta__table-chip " + (idx === 3 ? "is-active" : idx === 1 ? "is-bill" : "")}
+                >
+                  {t}
+                </div>
               ))}
             </div>
+
             <div className="final-cta__order-preview">
               <div className="final-cta__order-item">
-                <span>Paneer Tikka × 2</span>
-                <span>₹440</span>
+                <span>1× Mutton Donne Biryani (Extra Sherva)</span>
+                <b>₹320</b>
               </div>
               <div className="final-cta__order-item">
-                <span>Veg Biryani × 1</span>
-                <span>₹220</span>
+                <span>1× Chicken Sukka Fry (Spicy)</span>
+                <b>₹240</b>
               </div>
               <div className="final-cta__order-item">
-                <span>Filter Coffee × 2</span>
-                <span>₹140</span>
+                <span>2× Nannari Sherbet with Chia</span>
+                <b>₹120</b>
               </div>
               <div className="final-cta__order-total">
-                <span>Total</span>
-                <span>₹800</span>
+                <span>Total Bill (Incl. GST)</span>
+                <b>₹714</b>
               </div>
             </div>
+
             <div className="final-cta__status-bar">
               <span className="final-cta__status-dot" />
-              Table T-04 · Order preparing
+              <span>Seat 04 · KOT fired 03:42 ago · Dispatched to Handi Station</span>
             </div>
           </div>
         </div>

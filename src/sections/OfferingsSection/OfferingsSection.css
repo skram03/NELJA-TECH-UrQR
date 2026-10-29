@@ -1,112 +1,708 @@
+/* ============================================================
+   OfferingsSection.css — Screen 2 Pure Warm Light Theme
+   True Zig-Zag Formation & Thick Ruby Red Interlocking Chain Bridges
+   ============================================================ */
+
 .offerings {
-  background: var(--color-surface);
+  position: relative;
+  background-color: var(--color-bg-alt, #F5F3EE);
+  border-top: 1px solid var(--color-border, #E4E2DB);
+  border-bottom: 1px solid var(--color-border, #E4E2DB);
+  padding-block: clamp(56px, 7vw, 104px);
+  overflow-x: clip;
+}
+
+.offerings-chain-container {
+  max-width: 1540px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 2.5vw, 36px);
 }
 
 .offerings__header {
-  max-width: 720px;
-  margin-bottom: var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(36px, 5vw, 60px);
+  max-width: 840px;
+  margin-inline: auto;
+}
+
+.offerings__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(225, 29, 72, 0.08);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  color: #E11D48;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
 }
 
 .offerings__title {
-  margin-block: var(--sp-3) var(--sp-4);
-  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-4xl));
+  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+  font-weight: 850;
+  color: var(--color-text, #1C1B18);
+  margin-bottom: 12px;
+  letter-spacing: -0.035em;
+  line-height: 1.14;
 }
 
 .offerings__sub {
-  font-size: var(--text-lg);
+  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+  color: #55524A;
+  line-height: 1.6;
+  max-width: 740px;
+  margin: 0 auto;
 }
 
-.offerings__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-4);
-}
-
-@media (min-width: 640px) {
-  .offerings__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1000px) {
-  .offerings__grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.offering-card {
+/* ──────────────────────────────────────────────────────────── */
+/* ZIG-ZAG CANVAS: 4 STAGGERED HANGING CARDS                    */
+/* ──────────────────────────────────────────────────────────── */
+.chain-canvas--zigzag {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  min-height: 260px;
-  padding: var(--sp-6);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background: var(--color-bg);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  justify-content: center;
+  gap: clamp(28px, 3.6vw, 64px);
+  position: relative;
+  width: 100%;
+  padding-top: 36px;
+  padding-bottom: 84px;
+  margin-bottom: clamp(36px, 5vw, 56px);
 }
 
-.offering-card:hover {
-  border-color: var(--color-emerald-mid);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
+/* SVG Overlay for Dynamic Chain Links */
+.chain-links-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+  overflow: visible;
 }
 
-.offering-card__icon {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  margin-bottom: var(--sp-5);
-  border-radius: var(--radius-lg);
-  background: var(--color-emerald-light);
-  color: var(--color-emerald);
-}
-
-.offering-card h3 {
-  margin-bottom: var(--sp-3);
-  font-size: var(--text-lg);
-}
-
-.offering-card p {
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-}
-
-.offering-card__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin-top: auto;
-  padding-top: var(--sp-5);
-  color: var(--color-emerald);
-  font-size: var(--text-sm);
-  font-weight: 700;
-}
-
-.offering-card__link:hover {
-  text-decoration: underline;
-}
-
-.offerings__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  margin-top: var(--sp-8);
-  padding: var(--sp-5) var(--sp-6);
-  border-radius: var(--radius-xl);
-  background: var(--color-emerald-light);
-}
-
-.offerings__footer p {
-  color: var(--color-emerald-dark);
-  font-weight: 600;
+@media (max-width: 1024px) {
+  .chain-canvas--zigzag {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 28px;
+    padding-top: 24px;
+    padding-bottom: 36px;
+  }
 }
 
 @media (max-width: 640px) {
-  .offerings__footer {
-    align-items: flex-start;
+  .chain-canvas--zigzag {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* HANGING CARDS (PHYSICAL FLASHCARDS WITH SWAY PHYSICS)        */
+/* ──────────────────────────────────────────────────────────── */
+.chain-hanging-card {
+  flex: 1;
+  max-width: 285px;
+  min-width: 240px;
+  background: #FFFFFF;
+  border: 2px solid rgba(228, 226, 219, 0.95);
+  border-radius: 26px;
+  padding: 24px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow:
+    0 16px 36px -8px rgba(28, 27, 24, 0.08),
+    0 4px 12px rgba(28, 27, 24, 0.03);
+  
+  --sway-x: 0px;
+  --sway-rotate: 0deg;
+  transform: translateY(var(--zigzag-y, 0px))
+             translateX(var(--sway-x, 0px))
+             rotate(calc(var(--zigzag-rest-angle, 0deg) + var(--sway-rotate, 0deg)));
+  transition: transform 0.1s cubic-bezier(0.2, 0.85, 0.4, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+  user-select: none;
+}
+
+@media (max-width: 1024px) {
+  .chain-hanging-card {
+    max-width: 100%;
+    min-width: auto;
+  }
+}
+
+.chain-hanging-card:hover {
+  box-shadow:
+    0 24px 50px -10px rgba(28, 27, 24, 0.14),
+    0 8px 24px rgba(225, 29, 72, 0.14);
+  border-color: rgba(225, 29, 72, 0.45);
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* TRUE ZIG-ZAG STAGGERED ELEVATIONS & ANCHORED HINGES          */
+/* Card pivots at its grommet so the hole stays pinned to link!  */
+/* ──────────────────────────────────────────────────────────── */
+
+/* Card 1: Elevated, hinged on its right grommet (where chain loops) */
+.chain-card--zigzag-1 {
+  --zigzag-y: 0px;
+  --zigzag-rest-angle: -1.4deg;
+  transform-origin: calc(100% + 12px) 190px;
+}
+
+/* Card 2: Lowered, hinged at center grommet line */
+.chain-card--zigzag-2 {
+  --zigzag-y: 74px;
+  --zigzag-rest-angle: 1.6deg;
+  transform-origin: 50% 190px;
+}
+
+/* Card 3: Elevated, hinged at center grommet line */
+.chain-card--zigzag-3 {
+  --zigzag-y: 0px;
+  --zigzag-rest-angle: -1.4deg;
+  transform-origin: 50% 190px;
+}
+
+/* Card 4: Lowered, hinged on its left grommet (where chain loops) */
+.chain-card--zigzag-4 {
+  --zigzag-y: 74px;
+  --zigzag-rest-angle: 1.6deg;
+  transform-origin: -12px 190px;
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .chain-card--zigzag-1,
+  .chain-card--zigzag-2,
+  .chain-card--zigzag-3,
+  .chain-card--zigzag-4 {
+    --zigzag-y: 0px;
+    --zigzag-rest-angle: 0deg;
+    transform-origin: 50% 50%;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* PUNCHED GROMMET / EYELET HOLES (EXACTLY WHERE CHAINS ENTER)  */
+/* ──────────────────────────────────────────────────────────── */
+.card-grommet {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #FAF9F6;
+  border: 3.5px solid #CBD5E1;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.35),
+    0 1px 3px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.grommet-hole {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1C1B18;
+  opacity: 0.95;
+  box-shadow: inset 0 2px 3px #000000;
+}
+
+/* Right chain grommet (at Y=190px) */
+.card-grommet--right {
+  top: 190px;
+  right: -12px;
+}
+
+/* Left chain grommet (at Y=190px) */
+.card-grommet--left {
+  top: 190px;
+  left: -12px;
+}
+
+@media (max-width: 1024px) {
+  .chain-links-canvas-overlay {
+    display: none;
+  }
+  .card-grommet--right,
+  .card-grommet--left {
+    display: none;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* CIRCULAR STEP NUMBER BADGE (FLASHCARD / TOY STYLE)           */
+/* ──────────────────────────────────────────────────────────── */
+.step-circle-badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3.5px solid #E11D48;
+  box-shadow:
+    0 4px 14px rgba(225, 29, 72, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.step-number-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #E11D48;
+  line-height: 1;
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* CARD CONTENT & MICRO PREVIEWS                                */
+/* ──────────────────────────────────────────────────────────── */
+.chain-card__badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.chain-role-tag {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.role-tag--emerald { background: rgba(26, 107, 74, 0.1); color: var(--color-emerald, #1A6B4A); }
+.role-tag--amber   { background: rgba(192, 120, 32, 0.12); color: var(--color-amber, #C07820); }
+.role-tag--cyan    { background: rgba(14, 116, 144, 0.1); color: #0E7490; }
+.role-tag--purple  { background: rgba(109, 40, 217, 0.1); color: #6D28D9; }
+
+.chain-icon-bubble {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-alt, #F5F3EE);
+  color: var(--color-text, #1C1B18);
+  border: 1px solid var(--color-border, #E4E2DB);
+}
+
+.chain-card__title {
+  font-size: 1.16rem;
+  font-weight: 850;
+  color: var(--color-text, #1C1B18);
+  margin: 0 0 3px;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+
+.chain-card__subtitle {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #7E7B73;
+  margin: 0 0 14px;
+}
+
+/* Visual Micro Previews */
+.chain-card__preview-box {
+  background: #FAF9F6;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preview-top-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.preview-dot-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-emerald, #1A6B4A);
+}
+
+.dot-pulse-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-emerald, #1A6B4A);
+  box-shadow: 0 0 6px var(--color-emerald, #1A6B4A);
+}
+
+.preview-lang-pill {
+  background: rgba(26, 107, 74, 0.1);
+  color: var(--color-emerald, #1A6B4A);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.preview-dish-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.dish-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.dish-dum-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.54rem;
+  font-weight: 900;
+  color: var(--color-amber, #C07820);
+}
+
+.dish-details strong {
+  font-size: 0.74rem;
+  font-weight: 850;
+  color: var(--color-text, #1C1B18);
+}
+
+.dish-details small {
+  font-size: 0.62rem;
+  color: #7E7B73;
+}
+
+.preview-add-btn {
+  font-size: 0.6rem;
+  font-weight: 850;
+  background: var(--color-emerald, #1A6B4A);
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Card 2 Preview: 4-Seat Grid */
+.preview-zone-tag {
+  color: #7E7B73;
+}
+
+.preview-sub-legend {
+  font-size: 0.54rem;
+  color: #9C988D;
+}
+
+.preview-mini-seats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.seat-cell {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 6px;
+  padding: 4px 2px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.seat-cell strong {
+  font-size: 0.64rem;
+  font-weight: 900;
+  color: var(--color-text, #1C1B18);
+}
+
+.seat-cell span {
+  font-size: 0.48rem;
+  font-weight: 700;
+}
+
+.seat-cell--vacant { border-color: rgba(26, 107, 74, 0.3); background: rgba(26, 107, 74, 0.06); }
+.seat-cell--vacant span { color: var(--color-emerald, #1A6B4A); }
+
+.seat-cell--dining { border-color: rgba(192, 120, 32, 0.35); background: rgba(192, 120, 32, 0.08); }
+.seat-cell--dining span { color: var(--color-amber, #C07820); }
+
+.seat-cell--bill   { border-color: rgba(179, 58, 58, 0.3); background: rgba(179, 58, 58, 0.08); }
+.seat-cell--bill span { color: #B33A3A; }
+
+.preview-alert-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6rem;
+  color: #55524A;
+  background: rgba(192, 120, 32, 0.08);
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+/* Card 3 Preview: KDS Ticket */
+.kds-station-pill {
+  background: #0E7490;
+  color: #FFFFFF;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.55rem;
+  font-weight: 900;
+}
+
+.kds-timer-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--color-amber, #C07820);
+  font-family: var(--font-mono, monospace);
+  font-weight: 900;
+  font-size: 0.64rem;
+}
+
+.kds-ticket-preview-lines {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 8px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kds-line {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.64rem;
+}
+
+.kds-count {
+  font-weight: 900;
+  color: #0E7490;
+}
+
+.kds-line strong {
+  font-weight: 800;
+  color: var(--color-text, #1C1B18);
+}
+
+.kds-line small {
+  font-size: 0.54rem;
+  color: #7E7B73;
+}
+
+.kds-bump-btn-preview {
+  background: #0E7490;
+  color: #FFFFFF;
+  font-size: 0.6rem;
+  font-weight: 850;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Card 4 Preview: UPI & Telemetry */
+.upi-verified-badge {
+  color: #6D28D9;
+  font-size: 0.6rem;
+  font-weight: 900;
+}
+
+.upi-amount-pill {
+  background: rgba(109, 40, 217, 0.1);
+  color: #6D28D9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+}
+
+.preview-upi-apps {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.preview-upi-apps span {
+  font-size: 0.54rem;
+  font-weight: 800;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #55524A;
+}
+
+.preview-telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.tele-item {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 6px;
+  padding: 3px 2px;
+}
+
+.tele-item span {
+  display: block;
+  font-size: 0.5rem;
+  color: #7E7B73;
+}
+
+.tele-item strong {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 900;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text, #1C1B18);
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* ESSENTIALS LIST (NO CLUTTER, BALANCED SPACING)               */
+/* ──────────────────────────────────────────────────────────── */
+.chain-essentials-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chain-essentials-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: #55524A;
+  line-height: 1.45;
+}
+
+.chain-essentials-list li strong {
+  color: var(--color-text, #1C1B18);
+}
+
+/* Handoff Pill */
+.chain-handoff-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(225, 29, 72, 0.06);
+  border: 1px dashed rgba(225, 29, 72, 0.25);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: #BE123C;
+  margin-bottom: 14px;
+}
+
+.handoff-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E11D48;
+  animation: pulse-red 1.8s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-red {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Action CTA */
+.chain-card__action-row {
+  margin-top: auto;
+}
+
+.chain-engine-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 14px;
+  background: var(--color-bg-alt, #F5F3EE);
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 12px;
+  color: var(--color-text, #1C1B18);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.chain-engine-link:hover {
+  background: #E11D48;
+  border-color: #E11D48;
+  color: #FFFFFF;
+  transform: translateX(2px);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.28);
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* GUARANTEE NOTE                                               */
+/* ──────────────────────────────────────────────────────────── */
+.chain-guarantee-note {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E4E2DB);
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 4px 16px rgba(28, 27, 24, 0.04);
+}
+
+.chain-guarantee-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.chain-guarantee-note p {
+  font-size: 0.8rem;
+  color: #55524A;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.chain-guarantee-note strong {
+  color: var(--color-text, #1C1B18);
 }

@@ -1,0 +1,467 @@
+/* ============================================================
+   ServicesPage.css — Nelja Tech Enterprise Suite (Pro & Max)
+   RestosoftIN-Style Categorized Table Matrix
+   Fixed Geometry · Mathematically Aligned Columns
+   Zero Prices · Pure Checkmarks & Crossmarks · Zero Subtext Pills
+   ============================================================ */
+
+.services-page {
+  background: var(--color-bg, #FAF9F6);
+  min-height: 100vh;
+}
+
+/* ── Hero Section ── */
+.services-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(60px, 8vw, 100px);
+  padding-bottom: clamp(50px, 7vw, 80px);
+  border-bottom: 1px solid var(--color-border, #E5E2DB);
+}
+
+.services-hero__bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.services-hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  opacity: 0.16;
+  filter: saturate(1.1) brightness(0.98);
+}
+
+.services-hero__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 25%,
+    rgba(250, 249, 246, 0.90) 0%,
+    rgba(250, 249, 246, 0.96) 60%,
+    rgba(250, 249, 246, 0.99) 100%
+  );
+}
+
+.services-hero__container {
+  position: relative;
+  z-index: 1;
+}
+
+.services-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26, 107, 74, 0.1);
+  border: 1px solid rgba(26, 107, 74, 0.25);
+  color: var(--color-emerald, #1A6B4A);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+}
+
+.services-hero__title {
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-text-1, #1C1B18);
+  margin-bottom: 16px;
+}
+
+.services-hero__sub {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: var(--color-text-2, #4B5563);
+  line-height: var(--leading-relaxed, 1.6);
+  max-width: 760px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+/* ── Top 2 Plan Cards (Nelja Pro vs Nelja Max) ── */
+.plan-cards-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 1040px;
+}
+
+@media (min-width: 820px) {
+  .plan-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+.plan-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border, #E5E2DB);
+  border-radius: var(--radius-2xl, 24px);
+  padding: clamp(24px, 3.5vw, 36px);
+  box-shadow: 0 10px 32px rgba(28, 27, 24, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(28, 27, 24, 0.08);
+}
+
+.plan-card--pro {
+  border-color: rgba(2, 132, 199, 0.35);
+}
+
+.plan-card--max {
+  border-color: var(--color-emerald, #1A6B4A);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 100%);
+  box-shadow: 0 12px 36px rgba(26, 107, 74, 0.08);
+}
+
+.popular-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 28px;
+  background: var(--color-emerald, #1A6B4A);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(26, 107, 74, 0.35);
+}
+
+.plan-code-badge {
+  display: inline-flex;
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  color: #0284C7;
+  background: rgba(2, 132, 199, 0.1);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.plan-code-badge--max {
+  color: var(--color-emerald, #1A6B4A);
+  background: rgba(26, 107, 74, 0.1);
+  border-color: rgba(26, 107, 74, 0.25);
+}
+
+.plan-name {
+  font-size: clamp(1.65rem, 2.4vw, 2.1rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-text-1, #1C1B18);
+  margin-bottom: 8px;
+}
+
+.plan-purpose {
+  font-size: 0.95rem;
+  color: var(--color-text-2, #4B5563);
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+.plan-card__feature-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 16px;
+  background: var(--color-surface-subtle, #FAF9F6);
+  border: 1px solid var(--color-border, #E5E2DB);
+  border-radius: var(--radius-xl, 16px);
+}
+
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-1, #1C1B18);
+  line-height: 1.4;
+}
+
+.plan-card__cta-wrap {
+  margin-top: auto;
+}
+
+/* ============================================================
+   RESTOSOFTIN-STYLE COMPARISON TABLE MATRIX (FIXED GEOMETRY)
+   ============================================================ */
+
+.services-table-section {
+  padding: clamp(60px, 8vw, 100px) 0;
+}
+
+.table-section-heading {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto clamp(32px, 4vw, 48px);
+}
+
+.table-main-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--color-text-1, #1C1B18);
+  margin-bottom: 10px;
+}
+
+.table-main-sub {
+  font-size: 1rem;
+  color: var(--color-text-2, #4B5563);
+  line-height: 1.55;
+}
+
+/* ── The Master Table Container ── */
+.services-table-wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  overflow-x: auto;
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Explicit Fixed Table Layout */
+.services-matrix-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 680px;
+}
+
+/* Colgroup Definition */
+.col-feature {
+  width: 56%;
+}
+
+.col-pro {
+  width: 22%;
+}
+
+.col-max {
+  width: 22%;
+}
+
+/* ── Table Top Header ── */
+.table-head-row {
+  background: #FFFFFF;
+  border-bottom: 2px solid #E2E8F0;
+  color: #0F172A;
+}
+
+.th-feature-col {
+  width: 56%;
+  padding: 16px 24px;
+  font-size: 0.95rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  color: #0F172A;
+  background: #FFFFFF;
+  border-bottom: 2px solid #E2E8F0;
+  box-sizing: border-box;
+}
+
+.th-plan-col {
+  width: 22%;
+  text-align: center;
+  padding: 16px 12px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  box-sizing: border-box;
+}
+
+.th-plan-col--pro {
+  background: #F0F9FF;
+  border-left: 2px solid #E2E8F0;
+  border-bottom: 3px solid #0284C7;
+  color: #0284C7;
+}
+
+.th-plan-col--max {
+  background: #F0FDF4;
+  border-left: 2px solid #E2E8F0;
+  border-bottom: 3px solid #16A34A;
+  color: #16A34A;
+}
+
+/* ── Category Banner Row (Spans all 3 columns 100%) ── */
+.category-banner-row {
+  background: #E8F5EE;
+  border-top: 1px solid #C6E6D5;
+  border-bottom: 1px solid #C6E6D5;
+}
+
+.category-banner-td {
+  padding: 12px 24px;
+  font-size: 0.88rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #125538;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* ── Feature Data Rows ── */
+.feature-data-row {
+  border-bottom: 1px solid #E2E8F0;
+  transition: background 0.15s ease;
+}
+
+.feature-data-row:last-child {
+  border-bottom: 1px solid #CBD5E1;
+}
+
+.feature-data-row:hover {
+  background: #F1F5F9;
+}
+
+.row-zebra {
+  background: #FAF9F6;
+}
+
+/* Feature Name Cell */
+.td-feature-name {
+  width: 56%;
+  padding: 13px 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1E293B;
+  border-right: 1px solid #E2E8F0;
+  line-height: 1.45;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+/* Check / Cross Mark Cell (Guaranteed Center Alignment) */
+.td-mark {
+  width: 22%;
+  text-align: center;
+  padding: 12px 8px;
+  border-right: 1px solid #E2E8F0;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.td-mark:last-child {
+  border-right: none;
+}
+
+.td-mark--max {
+  background: rgba(26, 107, 74, 0.025);
+}
+
+.feature-data-row:hover .td-mark--max {
+  background: rgba(26, 107, 74, 0.06);
+}
+
+/* Centered Icons */
+.icon-check {
+  color: #16A34A; /* Pure green checkmark */
+  filter: drop-shadow(0 1px 2px rgba(22, 163, 74, 0.3));
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
+.icon-check--max {
+  color: #15803D;
+}
+
+.icon-cross {
+  color: #DC2626; /* Pure red crossmark */
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+  opacity: 0.85;
+}
+
+/* ── Consultation Footer Dock ── */
+.services-footer-dock {
+  margin-top: clamp(48px, 6vw, 72px);
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border, #E5E2DB);
+  border-radius: var(--radius-2xl, 24px);
+  padding: clamp(24px, 3.5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 10px 32px rgba(28, 27, 24, 0.04);
+}
+
+@media (min-width: 900px) {
+  .services-footer-dock {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.footer-dock__left {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 640px;
+}
+
+.dock-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(26, 107, 74, 0.1);
+  border: 1px solid rgba(26, 107, 74, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dock-title {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 850;
+  color: var(--color-text-1, #1C1B18);
+  margin-bottom: 6px;
+}
+
+.dock-desc {
+  font-size: 0.96rem;
+  color: var(--color-text-2, #4B5563);
+  line-height: 1.55;
+}
+
+.footer-dock__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .footer-dock__right {
+    width: 100%;
+  }
+  .footer-dock__right .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,134 +1,397 @@
+/* ============================================================
+   SolutionsGrid CSS — Specialized Hospitality Verticals
+   Pure Clean Warm Ivory & White Theme Architecture
+   Staggered Clothes Hangers (1 Row = 2 Cards: Upper & Lower)
+   Continuous Idle Physics-Based Swaying & Floating Movement
+   High-Contrast Typography, Crisp Shadows & Balanced Alignment
+   ============================================================ */
+
+.solutions-grid {
+  position: relative;
+  background: var(--color-bg, #FAF9F6);
+  padding: clamp(70px, 9vw, 120px) 0;
+  border-top: 1px solid var(--color-border, #E4E2DB);
+  border-bottom: 1px solid var(--color-border, #E4E2DB);
+}
+
 .solutions-grid__header {
   text-align: center;
-  max-width: 640px;
-  margin-inline: auto;
-  margin-bottom: var(--sp-12);
+  max-width: 820px;
+  margin: 0 auto clamp(40px, 6vw, 64px);
 }
 
 .solutions-grid__title {
-  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-4xl));
-  margin-bottom: var(--sp-4);
+  margin-top: var(--sp-3);
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-text-1, #1C1B18);
 }
 
 .solutions-grid__sub {
-  font-size: var(--text-lg);
-  color: var(--color-text-2);
+  margin-top: var(--sp-4);
+  font-size: var(--text-lg, 1.125rem);
+  color: var(--color-text-2, #4A4840);
+  line-height: var(--leading-relaxed, 1.6);
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Grid */
+/* ──────────────────────────────────────────────────────────── */
+/* GRID LAYOUT: EXACTLY 2 CARDS PER ROW WITH STAGGERED ELEVATION*/
+/* ──────────────────────────────────────────────────────────── */
 .solutions-grid__cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 3.5vw, 44px);
+  row-gap: 56px;
+  align-items: start;
+  max-width: 1160px;
+  margin-inline: auto;
+  perspective: 1200px;
 }
 
-@media (min-width: 640px) {
-  .solutions-grid__cards { grid-template-columns: repeat(3, 1fr); }
+/* Staggered Elevation: Column 1 (Upper) vs Column 2 (Lower) */
+@media (min-width: 861px) {
+  .sol-hanging-unit--upper {
+    margin-top: 0;
+  }
+
+  .sol-hanging-unit--lower {
+    margin-top: 64px;
+  }
 }
 
-@media (min-width: 900px) {
-  .solutions-grid__cards { grid-template-columns: repeat(4, 1fr); }
+/* Mobile responsive single column */
+@media (max-width: 860px) {
+  .solutions-grid__cards {
+    grid-template-columns: 1fr;
+    row-gap: 48px;
+    max-width: 580px;
+  }
+
+  .sol-hanging-unit--upper,
+  .sol-hanging-unit--lower {
+    margin-top: 0;
+  }
 }
 
-/* Card */
+/* ──────────────────────────────────────────────────────────── */
+/* HANGING UNIT (CARD + MOUNTED HANGER)                         */
+/* CONTINUOUS IDLE MOVEMENT (MOVES EVEN WITHOUT MOUSE INTERACTION)*/
+/* ──────────────────────────────────────────────────────────── */
+.sol-hanging-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  width: 100%;
+  transform-origin: 50% 12px; /* Realistic pendulum pivot at top peg */
+  will-change: transform;
+  cursor: pointer;
+}
+
+/* Individual organic timing phases so every card sways independently */
+.sol-hanging-unit:nth-child(6n + 1) {
+  animation: solHangerSwayA 5.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: 0s;
+}
+
+.sol-hanging-unit:nth-child(6n + 2) {
+  animation: solHangerSwayB 5.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -1.8s;
+}
+
+.sol-hanging-unit:nth-child(6n + 3) {
+  animation: solHangerSwayA 5.1s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -3.4s;
+}
+
+.sol-hanging-unit:nth-child(6n + 4) {
+  animation: solHangerSwayB 5.7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -0.9s;
+}
+
+.sol-hanging-unit:nth-child(6n + 5) {
+  animation: solHangerSwayA 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -4.2s;
+}
+
+.sol-hanging-unit:nth-child(6n + 6) {
+  animation: solHangerSwayB 5.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -2.5s;
+}
+
+/* Continuous Pendulum Oscillations */
+@keyframes solHangerSwayA {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px) rotateY(0deg);
+  }
+  25% {
+    transform: rotate(2.4deg) translateY(-5px) rotateY(2.2deg);
+  }
+  50% {
+    transform: rotate(0deg) translateY(0px) rotateY(0deg);
+  }
+  75% {
+    transform: rotate(-2.4deg) translateY(-5px) rotateY(-2.2deg);
+  }
+}
+
+@keyframes solHangerSwayB {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px) rotateY(0deg);
+  }
+  25% {
+    transform: rotate(-2.6deg) translateY(-6px) rotateY(-2.5deg);
+  }
+  50% {
+    transform: rotate(0deg) translateY(0px) rotateY(0deg);
+  }
+  75% {
+    transform: rotate(2.6deg) translateY(-6px) rotateY(2.5deg);
+  }
+}
+
+/* ── Hanger Mount Apparatus ── */
+.sol-hanger-mount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Top hanging pin / boutique wall peg */
+.sol-hanger-peg {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #E4E2DB 45%, #7A7769 100%);
+  border: 1.5px solid #C9C6BC;
+  box-shadow: 0 2px 6px rgba(28, 27, 24, 0.16), 0 0 10px var(--hanger-glow);
+  margin-bottom: -11px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Hanger graphic container */
+.sol-hanger-graphic {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  max-width: 55%;
+  filter: drop-shadow(0 4px 10px rgba(28, 27, 24, 0.12));
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+
+.sol-hanger-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.sol-hanger-hook-stem,
+.sol-hanger-hook-dot,
+.sol-hanger-frame {
+  transition: stroke 0.3s ease, fill 0.3s ease, filter 0.3s ease;
+}
+
+/* Two metallic clips clamping the top of the card */
+.sol-hanger-clips {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 28px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.sol-hanger-clip {
+  width: 10px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--hanger-color) 0%, #FFFFFF 85%);
+  border: 1.5px solid var(--hanger-color);
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(28, 27, 24, 0.15);
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* THE CARD — CRISP WHITE THEME SURFACE                         */
+/* ──────────────────────────────────────────────────────────── */
 .sol-card {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  background: #FFFFFF;
+  border: 1.5px solid #E4E2DB;
+  border-top: 3.5px solid var(--hanger-color);
+  border-radius: 24px;
   overflow: hidden;
-  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  box-shadow: 0 10px 30px -5px rgba(28, 27, 24, 0.08), 0 4px 12px -2px rgba(28, 27, 24, 0.04);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  margin-top: -6px;
+  position: relative;
+  z-index: 1;
 }
 
-.sol-card:hover {
-  box-shadow: var(--shadow-lg);
+/* Responsive lift & enhanced glow on hover without interrupting the sway */
+.sol-hanging-unit:hover .sol-card {
+  transform: translateY(-8px) scale(1.012);
+  border-color: var(--hanger-color);
+  box-shadow: 0 24px 50px -10px var(--hanger-glow), 0 8px 18px -4px rgba(28, 27, 24, 0.08);
+}
+
+.sol-hanging-unit:hover .sol-hanger-graphic {
   transform: translateY(-4px);
-  border-color: var(--color-emerald-light);
+  filter: drop-shadow(0 8px 18px var(--hanger-glow));
 }
 
-/* Visual header */
+/* Visual head */
 .sol-card__visual {
   position: relative;
-  height: 110px;
+  height: 205px;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: var(--sp-4);
+  background: #F0EFE9;
 }
 
 .sol-card__visual-img {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.5;
-  transition: transform var(--transition-slow), opacity var(--transition-base);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sol-card:hover .sol-card__visual-img {
-  transform: scale(1.05);
-  opacity: 0.6;
+.sol-hanging-unit:hover .sol-card__visual-img {
+  transform: scale(1.06);
 }
 
 .sol-card__visual-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(28, 27, 24, 0.04) 0%, rgba(28, 27, 24, 0.40) 100%);
 }
 
-.sol-card__icon {
-  position: relative;
-  z-index: 1;
-  font-size: 2.25rem;
-  line-height: 1;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+.sol-card__tag-pill {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #1C1B18;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Card body */
+.sol-card__turnover-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: #FFFFFF;
+  border: 1px solid #FCD34D;
+  backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+  font-weight: 850;
+  color: #B45309;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Body */
 .sol-card__body {
+  padding: 24px 26px 22px;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-  flex: 1;
+  flex-grow: 1;
+  background: #FFFFFF;
 }
 
 .sol-card__top {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  gap: var(--sp-2);
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .sol-card__name {
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-text);
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: #1C1B18;
+  line-height: 1.25;
 }
 
 .sol-card__headline {
-  font-size: var(--text-sm);
-  color: var(--color-text-2);
-  line-height: var(--leading-relaxed);
-  flex: 1;
+  font-size: 0.92rem;
+  color: #4A4840;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.sol-card__highlights-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  background: #FAF9F6;
+  border: 1px solid #E4E2DB;
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.sol-card__preview-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.84rem;
+  font-weight: 550;
+  color: #2D2B26;
+  line-height: 1.45;
+}
+
+.sol-card__bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hanger-color);
+  flex-shrink: 0;
+  margin-top: 6px;
 }
 
 .sol-card__link {
+  margin-top: auto;
   display: flex;
   align-items: center;
-  gap: var(--sp-1);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-emerald);
-  margin-top: auto;
-  transition: gap var(--transition-fast);
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: var(--hanger-color);
+  transition: gap 0.25s ease;
+  padding-top: 6px;
 }
 
-.sol-card:hover .sol-card__link {
-  gap: var(--sp-2);
+.sol-hanging-unit:hover .sol-card__link {
+  gap: 12px;
 }

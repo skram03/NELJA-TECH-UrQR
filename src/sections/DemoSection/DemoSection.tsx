@@ -1,45 +1,76 @@
+import { useState } from "react";
 import MenuDemo from "../../components/MenuDemo/MenuDemo";
+import { Smartphone, ChefHat, UserCheck, Receipt, Sparkles } from "lucide-react";
 import "./DemoSection.css";
 
+const VERTICAL_BG_MAP: Record<string, string> = {
+  military_hotel: "/images/food-spread.jpg",
+  cafe: "/images/cafe-ambiance.jpg",
+  fine_dining: "/images/fine-dining.jpg",
+  qsr: "/images/hero-restaurant.jpg",
+};
+
 export default function DemoSection() {
+  const [activeVertical, setActiveVertical] = useState<"military_hotel" | "cafe" | "fine_dining" | "qsr">("military_hotel");
+
   return (
-    <section className="demo-section section" style={{ background: "var(--color-bg-alt)" }} aria-labelledby="demo-heading">
-      <div className="container">
-        <div className="demo-section__inner">
-          {/* Left: Demo phone */}
-          <div className="demo-section__phone">
-            <MenuDemo />
+    <section className="demo-section section" id="interactive-simulator" aria-labelledby="demo-heading">
+      {/* Full-bleed background filling the entire screen with selected vertical's ambiance */}
+      <div className="demo-section__bg-wrap" aria-hidden="true">
+        <img
+          src={VERTICAL_BG_MAP[activeVertical] || "/images/food-spread.jpg"}
+          alt="Selected Restaurant Vertical Atmosphere"
+          className="demo-section__bg-img"
+          key={activeVertical}
+        />
+        <div className="demo-section__bg-overlay" />
+      </div>
+
+      <div className="container demo-section__container">
+        
+        {/* Section Header */}
+        <div className="demo-section__header text-center">
+          <div className="section-label">
+            <Sparkles size={14} className="icon-pulse" />
+            INTERACTIVE FLOOR SIMULATOR
           </div>
+          <h2 id="demo-heading" className="demo-section__title">
+            Test the Entire <span className="gradient-text-emerald">Dining Ecosystem</span> Live.
+          </h2>
+          <p className="demo-section__sub">
+            Switch between <strong>Customer Phone</strong>, <strong>Waiter Cockpit</strong>, <strong>Kitchen Pass KDS</strong>, and <strong>Table UPI Payment</strong>.
+            Pick between Thoogudeepa Donne Biryani, Specialty Cafe, or Fine Dining to see the actual operational flow in action.
+          </p>
+        </div>
 
-          {/* Right: Explanation */}
-          <div className="demo-section__content">
-            <div className="section-label">Try the guest menu</div>
-            <h2 id="demo-heading" className="demo-section__title">
-              See what your guests see after they scan
-            </h2>
-            <p className="demo-section__sub">
-              Open the sample menu below and try the same basic journey a guest follows: browse dishes, add items, review the cart, and send a test order.
-            </p>
-
-            <div className="demo-section__steps">
-              {[
-              { n: "1", text: "Open the menu on the phone" },
-              { n: "2", text: "Browse dishes and add items" },
-              { n: "3", text: "Review the cart and total" },
-              { n: "4", text: "Send a test order" },
-              ].map((s) => (
-                <div key={s.n} className="demo-step">
-                  <div className="demo-step__num">{s.n}</div>
-                  <p className="demo-step__text">{s.text}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="demo-section__note">
-              <strong>Note:</strong> This demonstration uses entirely local frontend state. No orders are placed, no data is stored, and no payment is required. Sample menu items and prices are illustrative.
-            </div>
+        {/* Feature Pills */}
+        <div className="demo-section__pills">
+          <div className="demo-pill">
+            <Smartphone size={14} className="text-emerald" />
+            <span>1. Customer punches Donne Biryani</span>
+          </div>
+          <div className="demo-pill-arrow">→</div>
+          <div className="demo-pill">
+            <ChefHat size={14} className="text-cyan" />
+            <span>2. Kitchen KDS rings ticket</span>
+          </div>
+          <div className="demo-pill-arrow">→</div>
+          <div className="demo-pill">
+            <UserCheck size={14} className="text-amber" />
+            <span>3. Waiter mobile marks 'Dining'</span>
+          </div>
+          <div className="demo-pill-arrow">→</div>
+          <div className="demo-pill">
+            <Receipt size={14} className="text-purple" />
+            <span>4. 15s Table UPI settle</span>
           </div>
         </div>
+
+        {/* The Master Simulator Component with Full Desktop Screen Utilization */}
+        <div className="demo-section__simulator-wrapper">
+          <MenuDemo onVerticalChange={(vKey) => setActiveVertical(vKey)} />
+        </div>
+
       </div>
     </section>
   );

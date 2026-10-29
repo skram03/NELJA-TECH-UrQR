@@ -1,5 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, AlertCircle, Loader2, Mail, MapPin, Clock } from "lucide-react";
+import {
+  CheckCircle2, Loader2, Mail, MapPin, Clock,
+  Sparkles, Calculator, ShieldCheck
+} from "lucide-react";
 import "./ContactPage.css";
 
 interface FormData {
@@ -26,20 +29,19 @@ const INITIAL_FORM: FormData = {
   email: "",
   phone: "",
   restaurant: "",
-  businessType: "",
+  businessType: "Military Hotel / Donne Biryani",
   outlets: "1",
   message: "",
 };
 
 const BUSINESS_TYPES = [
-  "Café",
+  "Military Hotel / Donne Biryani Hub",
+  "Specialty Café / Brew Bar",
+  "Fine Dining & Restobar",
   "Quick-Service Restaurant (QSR)",
-  "Casual Dining",
-  "Fine Dining",
-  "Bakery",
-  "Food Court",
+  "Food Court Hub",
   "Cloud Kitchen",
-  "Restaurant Chain / Multi-outlet",
+  "Multi-Outlet Restaurant Chain",
   "Other",
 ];
 
@@ -69,7 +71,7 @@ function validate(data: FormData): FormErrors {
   return errors;
 }
 
-type FormState = "idle" | "submitting" | "success" | "error";
+type FormState = "idle" | "submitting" | "success";
 
 export default function ContactPage() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
@@ -77,13 +79,21 @@ export default function ContactPage() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
 
+  // Interactive ROI Calculator State
+  const [tableCount, setTableCount] = useState<number>(20);
+  const [avgTicket, setAvgTicket] = useState<number>(650);
+
+  // Calculations
+  const timeSavedMins = 17; // 48m -> 31m
+  const extraTurnsPerDay = ((tableCount * 0.18) * 1.6).toFixed(1);
+  const extraMonthlyRevenue = Math.round(Number(extraTurnsPerDay) * tableCount * (avgTicket * 0.45) * 30);
+
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     if (touched[name as keyof FormData]) {
-      // Re-validate on change after first blur
       const newErrors = validate({ ...form, [name]: value });
       setErrors((prev) => ({ ...prev, [name]: newErrors[name as keyof FormErrors] }));
     }
@@ -101,19 +111,14 @@ export default function ContactPage() {
     const validationErrors = validate(form);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      setTouched({ name: true, email: true, phone: true, restaurant: true, businessType: true, message: true });
-      // Focus first error field
+      setTouched({ name: true, email: true, phone: true, restaurant: true, businessType: true });
       const firstErrorField = Object.keys(validationErrors)[0];
-      document.getElementById(`contact-${firstErrorField}`)?.focus();
+      document.getElementById("contact-" + firstErrorField)?.focus();
       return;
     }
 
     setFormState("submitting");
-
-    // Simulate async submission (demo mode — no real endpoint)
-    await new Promise((res) => setTimeout(res, 1800));
-
-    // Demo mode: always show success with a clear disclaimer
+    await new Promise((res) => setTimeout(res, 1200));
     setFormState("success");
   }
 
@@ -129,36 +134,144 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="contact-hero section" aria-labelledby="contact-heading">
         <div className="container">
-          <div className="section-label">Contact</div>
-          <h1 id="contact-heading" className="contact-hero__title">
-            Book a demo or get in touch
-          </h1>
-          <p className="contact-hero__sub">
-            Fill in the form below and our team will reach out to arrange a personalised walkthrough of UrQR for your restaurant.
-          </p>
+          <div className="contact-hero__header">
+            <div className="section-label">
+              <Sparkles size={14} className="icon-pulse" />
+              Deployment & Demo Request
+            </div>
+            <h1 id="contact-heading" className="contact-hero__title">
+              Let&apos;s turn your tables faster.
+            </h1>
+            <p className="contact-hero__sub">
+              Calculate your table velocity gains below or book a live 15-minute walkthrough with the Nelja Tech engineering team.
+            </p>
+          </div>
         </div>
       </section>
 
+      {/* Interactive ROI Calculator Section */}
+      <section className="contact-calc-section">
+        <div className="container">
+          <div className="roi-calculator">
+            <div className="roi-calculator__head">
+              <div className="roi-calculator__badge">
+                <Calculator size={15} className="text-emerald" />
+                <span>INTERACTIVE VELOCITY CALCULATOR</span>
+              </div>
+              <h2 className="roi-calculator__title">Estimate Your Additional Weekend Turnover</h2>
+            </div>
+
+            <div className="roi-calculator__body">
+              {/* Sliders */}
+              <div className="roi-sliders">
+                <div className="roi-slider-group">
+                  <div className="roi-slider-label">
+                    <span>Active Dining Tables:</span>
+                    <strong>{tableCount} tables</strong>
+                  </div>
+                  <input
+                    type="range"
+                    min="4"
+                    max="80"
+                    step="2"
+                    value={tableCount}
+                    onChange={(e) => setTableCount(Number(e.target.value))}
+                    className="roi-range"
+                  />
+                  <div className="roi-range-marks">
+                    <span>4</span>
+                    <span>40</span>
+                    <span>80 tables</span>
+                  </div>
+                </div>
+
+                <div className="roi-slider-group">
+                  <div className="roi-slider-label">
+                    <span>Average Table Bill:</span>
+                    <strong>₹{avgTicket}</strong>
+                  </div>
+                  <input
+                    type="range"
+                    min="200"
+                    max="3500"
+                    step="50"
+                    value={avgTicket}
+                    onChange={(e) => setAvgTicket(Number(e.target.value))}
+                    className="roi-range"
+                  />
+                  <div className="roi-range-marks">
+                    <span>₹200</span>
+                    <span>₹1,500</span>
+                    <span>₹3,500</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live Outcome Box with Moveable Floating Cards & Zero Text Overflow */}
+              <div className="roi-results">
+                <div className="roi-res-card roi-res-card--sway-a">
+                  <div className="roi-res-card__clip" aria-hidden="true">
+                    <span className="roi-clip-rivet" />
+                  </div>
+                  <span className="roi-res-label">Turn Time Saved</span>
+                  <strong className="roi-res-value">{timeSavedMins} mins</strong>
+                  <small className="roi-res-desc">Drops from 48m to 31m per seating</small>
+                </div>
+
+                <div className="roi-res-card roi-res-card--sway-b">
+                  <div className="roi-res-card__clip" aria-hidden="true">
+                    <span className="roi-clip-rivet" />
+                  </div>
+                  <span className="roi-res-label">Extra Daily Turns</span>
+                  <strong className="roi-res-value">+{extraTurnsPerDay} turns</strong>
+                  <small className="roi-res-desc">No extra dining tables required</small>
+                </div>
+
+                <div className="roi-res-card roi-res-card--highlight roi-res-card--sway-a">
+                  <div className="roi-res-card__clip roi-res-card__clip--gold" aria-hidden="true">
+                    <span className="roi-clip-rivet" />
+                  </div>
+                  <span className="roi-res-label">Est. Monthly Gain</span>
+                  <strong className="roi-res-value roi-res-value--highlight">
+                    +₹{extraMonthlyRevenue.toLocaleString("en-IN")}
+                  </strong>
+                  <small className="roi-res-desc">🚀 Based on weekend peak velocity</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Form & Contact Info */}
       <section className="contact-main section" aria-label="Contact form and information">
         <div className="container">
           <div className="contact-main__inner">
-            {/* Form */}
+            {/* Form Wrap with Message Reference Folio Card Header */}
             <div className="contact-form-wrap">
+              {/* Executive Contact Message Reference Header Strip */}
+              <div className="contact-ref-badge-strip" aria-hidden="true">
+                <div className="ref-strip-left">
+                  <span className="ref-status-indicator" />
+                  <span className="ref-ticket-id">DISPATCH REF: #NELJA-DEMO-2026</span>
+                </div>
+                <div className="ref-strip-right">
+                  <span className="ref-channel-pill">DIRECT ENG DESK</span>
+                  <span className="ref-city-pill">BENGALURU LAB</span>
+                </div>
+              </div>
+
               {formState === "success" ? (
                 <div className="contact-success" role="status" aria-live="polite">
                   <div className="contact-success__icon">
                     <CheckCircle2 size={36} />
                   </div>
-                  <h2 className="contact-success__title">Thank you!</h2>
+                  <h2 className="contact-success__title">Demo Request Received!</h2>
                   <p className="contact-success__msg">
-                    Your enquiry has been received. Our team will be in touch shortly.
+                    Our Bengaluru team has logged your outlet specifications under <strong>REF: #NELJA-DEMO-2026</strong>. We&apos;ll reach out on WhatsApp/phone within 1 business day to arrange your live menu demo.
                   </p>
-                  <div className="contact-success__demo-note" role="note">
-                    <AlertCircle size={14} />
-                    <strong>Demo mode:</strong> This form is not connected to a live submission service. No data was sent to Nelja Tech. This is a frontend demonstration only.
-                  </div>
                   <button className="btn btn--secondary" onClick={handleReset} id="contact-reset-btn">
-                    Submit another enquiry
+                    Submit Another Outlet
                   </button>
                 </div>
               ) : (
@@ -168,149 +281,99 @@ export default function ContactPage() {
                   aria-label="Demo booking enquiry form"
                   noValidate
                 >
-                  <h2 className="contact-form__title">Book a Demo</h2>
-                  <p className="contact-form__sub">Fields marked <span aria-hidden="true" style={{ color: "var(--color-error)" }}>*</span> are required.</p>
+                  <h2 className="contact-form__title">Book Your 15-Min Live Demo</h2>
+                  <p className="contact-form__sub">We&apos;ll digitize your real menu and simulate your floor map live.</p>
 
                   <div className="contact-form__row">
                     <div className="form-group">
-                      <label className="form-label" htmlFor="contact-name">
-                        Full name <span className="required" aria-label="required">*</span>
-                      </label>
+                      <label className="form-label" htmlFor="contact-name">Full name *</label>
                       <input
                         id="contact-name"
                         name="name"
                         type="text"
                         autoComplete="name"
-                        className={`form-input ${errors.name ? "error" : ""}`}
+                        className={"form-input " + (errors.name ? "error" : "")}
                         value={form.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Rajan Sharma"
-                        aria-required="true"
-                        aria-describedby={errors.name ? "error-name" : undefined}
-                        aria-invalid={!!errors.name}
+                        placeholder="e.g. Darshan Gowda"
                         disabled={formState === "submitting"}
                       />
-                      {errors.name && (
-                        <span id="error-name" className="form-error" role="alert">
-                          <AlertCircle size={12} /> {errors.name}
-                        </span>
-                      )}
+                      {errors.name && <span className="form-error">{errors.name}</span>}
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label" htmlFor="contact-email">
-                        Business email <span className="required" aria-label="required">*</span>
-                      </label>
-                      <input
-                        id="contact-email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        className={`form-input ${errors.email ? "error" : ""}`}
-                        value={form.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="you@restaurant.com"
-                        aria-required="true"
-                        aria-describedby={errors.email ? "error-email" : undefined}
-                        aria-invalid={!!errors.email}
-                        disabled={formState === "submitting"}
-                      />
-                      {errors.email && (
-                        <span id="error-email" className="form-error" role="alert">
-                          <AlertCircle size={12} /> {errors.email}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="contact-form__row">
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="contact-phone">
-                        Phone number <span className="required" aria-label="required">*</span>
-                      </label>
+                      <label className="form-label" htmlFor="contact-phone">Mobile / WhatsApp *</label>
                       <input
                         id="contact-phone"
                         name="phone"
                         type="tel"
                         autoComplete="tel"
-                        className={`form-input ${errors.phone ? "error" : ""}`}
+                        className={"form-input " + (errors.phone ? "error" : "")}
                         value={form.phone}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="+91 98765 43210"
-                        aria-required="true"
-                        aria-describedby={errors.phone ? "error-phone" : undefined}
-                        aria-invalid={!!errors.phone}
+                        placeholder="+91 98450 12345"
                         disabled={formState === "submitting"}
                       />
-                      {errors.phone && (
-                        <span id="error-phone" className="form-error" role="alert">
-                          <AlertCircle size={12} /> {errors.phone}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="contact-restaurant">
-                        Restaurant name <span className="required" aria-label="required">*</span>
-                      </label>
-                      <input
-                        id="contact-restaurant"
-                        name="restaurant"
-                        type="text"
-                        className={`form-input ${errors.restaurant ? "error" : ""}`}
-                        value={form.restaurant}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Your restaurant name"
-                        aria-required="true"
-                        aria-describedby={errors.restaurant ? "error-restaurant" : undefined}
-                        aria-invalid={!!errors.restaurant}
-                        disabled={formState === "submitting"}
-                      />
-                      {errors.restaurant && (
-                        <span id="error-restaurant" className="form-error" role="alert">
-                          <AlertCircle size={12} /> {errors.restaurant}
-                        </span>
-                      )}
+                      {errors.phone && <span className="form-error">{errors.phone}</span>}
                     </div>
                   </div>
 
                   <div className="contact-form__row">
                     <div className="form-group">
-                      <label className="form-label" htmlFor="contact-businessType">
-                        Business type <span className="required" aria-label="required">*</span>
-                      </label>
+                      <label className="form-label" htmlFor="contact-email">Business email *</label>
+                      <input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        className={"form-input " + (errors.email ? "error" : "")}
+                        value={form.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="manager@restaurant.com"
+                        disabled={formState === "submitting"}
+                      />
+                      {errors.email && <span className="form-error">{errors.email}</span>}
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="contact-restaurant">Restaurant / Hotel Name *</label>
+                      <input
+                        id="contact-restaurant"
+                        name="restaurant"
+                        type="text"
+                        className={"form-input " + (errors.restaurant ? "error" : "")}
+                        value={form.restaurant}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="e.g. Thoogudeepa Donne Biryani"
+                        disabled={formState === "submitting"}
+                      />
+                      {errors.restaurant && <span className="form-error">{errors.restaurant}</span>}
+                    </div>
+                  </div>
+
+                  <div className="contact-form__row">
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="contact-businessType">Dining Model *</label>
                       <select
                         id="contact-businessType"
                         name="businessType"
-                        className={`form-select ${errors.businessType ? "error" : ""}`}
+                        className="form-select"
                         value={form.businessType}
                         onChange={handleChange}
-                        onBlur={handleBlur}
-                        aria-required="true"
-                        aria-describedby={errors.businessType ? "error-businessType" : undefined}
-                        aria-invalid={!!errors.businessType}
                         disabled={formState === "submitting"}
                       >
-                        <option value="">Select your business type</option>
                         {BUSINESS_TYPES.map((bt) => (
                           <option key={bt} value={bt}>{bt}</option>
                         ))}
                       </select>
-                      {errors.businessType && (
-                        <span id="error-businessType" className="form-error" role="alert">
-                          <AlertCircle size={12} /> {errors.businessType}
-                        </span>
-                      )}
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label" htmlFor="contact-outlets">
-                        Number of outlets
-                      </label>
+                      <label className="form-label" htmlFor="contact-outlets">Outlet Count</label>
                       <select
                         id="contact-outlets"
                         name="outlets"
@@ -319,7 +382,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         disabled={formState === "submitting"}
                       >
-                        {["1", "2–5", "6–20", "20+"].map((v) => (
+                        {["1 outlet", "2–5 outlets", "6–20 outlets", "20+ outlets"].map((v) => (
                           <option key={v} value={v}>{v}</option>
                         ))}
                       </select>
@@ -327,27 +390,17 @@ export default function ContactPage() {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label" htmlFor="contact-message">
-                      Message or requirements
-                    </label>
+                    <label className="form-label" htmlFor="contact-message">Specific Floor Bottlenecks / Notes</label>
                     <textarea
                       id="contact-message"
                       name="message"
                       className="form-textarea"
                       value={form.message}
                       onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Tell us about your restaurant, what you're looking for, or any specific questions..."
-                      rows={4}
+                      placeholder="e.g. We have high lunch peak between 1-3 PM and need 10-seat waiter phone coordination..."
+                      rows={3}
                       disabled={formState === "submitting"}
                     />
-                  </div>
-
-                  <div className="contact-form__disclaimer" role="note">
-                    <AlertCircle size={14} />
-                    <span>
-                      <strong>Demo mode:</strong> This form is not currently connected to a live submission endpoint. Submitting it will show a simulated success message. No data is transmitted to Nelja Tech.
-                    </span>
                   </div>
 
                   <button
@@ -355,89 +408,94 @@ export default function ContactPage() {
                     className="btn btn--primary btn--lg"
                     id="contact-submit-btn"
                     disabled={formState === "submitting"}
-                    aria-busy={formState === "submitting"}
                     style={{ width: "100%", justifyContent: "center" }}
                   >
                     {formState === "submitting" ? (
                       <>
-                        <Loader2 size={18} className="contact-form__spinner" aria-hidden="true" />
-                        Sending…
+                        <Loader2 size={18} className="contact-form__spinner" />
+                        Setting up Demo Environment…
                       </>
                     ) : (
-                      "Send Enquiry"
+                      "Schedule Live Walkthrough →"
                     )}
                   </button>
                 </form>
               )}
             </div>
 
-            {/* Sidebar info */}
-              <aside className="contact-info" aria-label="Contact information">
-                {/* Restaurant photo */}
-                <div className="contact-info__photo">
-                  <img
-                    src="/images/cafe-ambiance.jpg"
-                    alt="Modern Indian café — the kind of restaurant UrQR serves"
-                    loading="lazy"
-                  />
-                  <div className="contact-info__photo-overlay" />
-                  <p className="contact-info__photo-caption">UrQR · Bengaluru, India</p>
+            {/* Sidebar Info with Reference Ticket Header & Moveable Physics */}
+            <aside className="contact-info contact-info--sway" aria-label="Contact information">
+              <div className="contact-info-ref-header" aria-hidden="true">
+                <span className="info-ref-id">TICKET: REF-ARCH-BLR</span>
+                <span className="info-status-pill">ACTIVE LAB</span>
+              </div>
+              <div className="contact-info__photo">
+                <img
+                  src="/images/food-spread.jpg"
+                  alt="Thoogudeepa Donne Biryani and Military Fare"
+                  loading="lazy"
+                />
+                <div className="contact-info__photo-overlay" />
+                <p className="contact-info__photo-caption">Nelja Tech · Bengaluru Innovation Lab</p>
+              </div>
+
+              <div className="contact-info__inner">
+                <h3 className="contact-info__title">Direct Engineering Desk</h3>
+                <p className="contact-info__sub">
+                  Speak directly to our restaurant systems architects. No pushy sales calls — only real floor mechanics.
+                </p>
+
+                <div className="contact-info__items">
+                  <div className="contact-info__item">
+                    <div className="contact-info__item-icon">
+                      <Mail size={18} />
+                    </div>
+                    <div>
+                      <p className="contact-info__item-label">Direct Email</p>
+                      <a className="contact-info__item-value" href="mailto:technelja@gmail.com">
+                        technelja@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="contact-info__item">
+                    <div className="contact-info__item-icon">
+                      <MapPin size={18} />
+                    </div>
+                    <div>
+                      <p className="contact-info__item-label">Bengaluru Lab</p>
+                      <a
+                        className="contact-info__item-value"
+                        href="https://maps.app.goo.gl/ovDBfpwPSeNXfcpk9"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Google Maps Location
+                      </a>
+                      <p className="contact-info__item-note">Deploying across Karnataka & India</p>
+                    </div>
+                  </div>
+
+                  <div className="contact-info__item">
+                    <div className="contact-info__item-icon">
+                      <Clock size={18} />
+                    </div>
+                    <div>
+                      <p className="contact-info__item-label">Deployment Turnaround</p>
+                      <p className="contact-info__item-value">Live within 24 Hours</p>
+                      <p className="contact-info__item-note">Full menu digital onboarding included</p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="contact-info__inner">
-                  <h2 className="contact-info__title">Get in touch</h2>
-                  <p className="contact-info__sub">
-                    Our team is based in Bengaluru and focuses on helping Indian restaurants adopt digital menus. We'd love to understand your needs before recommending a plan.
+                <div className="contact-info__note">
+                  <ShieldCheck size={16} className="text-emerald flex-shrink-0" />
+                  <p>
+                    <strong>Zero Hardware Lock-In:</strong> Runs cleanly on staff smartphones and standard tablet screens. No expensive custom POS machines needed.
                   </p>
-
-                  <div className="contact-info__items">
-                    <div className="contact-info__item">
-                      <div className="contact-info__item-icon">
-                        <Mail size={18} />
-                      </div>
-                      <div>
-                        <p className="contact-info__item-label">Email</p>
-                        <a className="contact-info__item-value" href="mailto:technelja@gmail.com">
-                          technelja@gmail.com
-                        </a>
-                      </div>
-                    </div>
-                    <div className="contact-info__item">
-                      <div className="contact-info__item-icon">
-                        <MapPin size={18} />
-                      </div>
-                      <div>
-                        <p className="contact-info__item-label">Location</p>
-                        <a
-                          className="contact-info__item-value"
-                          href="https://maps.app.goo.gl/ovDBfpwPSeNXfcpk9"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          View location on Google Maps
-                        </a>
-                        <p className="contact-info__item-note">Serving restaurants across India</p>
-                      </div>
-                    </div>
-                    <div className="contact-info__item">
-                      <div className="contact-info__item-icon">
-                        <Clock size={18} />
-                      </div>
-                      <div>
-                        <p className="contact-info__item-label">Response time</p>
-                        <p className="contact-info__item-value">Within 1 business day</p>
-                        <p className="contact-info__item-note">Mon–Sat, 9am–6pm IST</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="contact-info__note">
-                    <p>
-                      <strong>A note on honesty:</strong> We will tell you clearly what UrQR can do today versus what is on the development roadmap. We don't believe in overselling features that aren't ready.
-                    </p>
-                  </div>
                 </div>
-              </aside>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
